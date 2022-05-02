@@ -1,7 +1,9 @@
 FROM python:3.7.13-slim
 
-WORKDIR /generating-piano-music-with-transformer
-COPY . /generating-piano-music-with-transformer
+ARG WORKDIR=/generating-piano-music-with-transformer
+
+WORKDIR ${WORKDIR}
+COPY . ${WORKDIR}
 
 RUN apt-get update -y
 RUN apt-get install curl fluidsynth build-essential libsndfile1 libasound2-dev libjack-dev -y
@@ -10,12 +12,12 @@ RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyri
 RUN apt-get update -y
 RUN apt-get install google-cloud-sdk -y
 
-RUN mkdir /generating-piano-music-with-transformer/content
-RUN mkdir /generating-piano-music-with-transformer/checkpoints
+RUN mkdir ${WORKDIR}/content
+RUN mkdir ${WORKDIR}/checkpoints
 
-RUN gsutil -q -m cp -r gs://magentadata/models/music_transformer/primers/* /generating-piano-music-with-transformer/content/
-RUN gsutil -q -m cp gs://magentadata/soundfonts/Yamaha-C5-Salamander-JNv5.1.sf2 /generating-piano-music-with-transformer/content/
-RUN gsutil -q -m cp -r gs://magentadata/models/music_transformer/checkpoints/* /generating-piano-music-with-transformer/checkpoints
+RUN gsutil -q -m cp -r gs://magentadata/models/music_transformer/primers/* ${WORKDIR}/content/
+RUN gsutil -q -m cp gs://magentadata/soundfonts/Yamaha-C5-Salamander-JNv5.1.sf2 ${WORKDIR}/content/
+RUN gsutil -q -m cp -r gs://magentadata/models/music_transformer/checkpoints/* ${WORKDIR}/checkpoints
 
 RUN pip install --upgrade pip
 RUN pip install poetry
