@@ -18,6 +18,12 @@ parser.add_argument(
     type=str,
     help="Midi file path for priming if not provided model will generate sample without priming.",
 )
+parser.add_argument(
+    "--max_primer_seconds",
+    type=int,
+    default=20,
+    help="Maximum number of time in seconds for priming.",
+)
 args = parser.parse_args()
 
 
@@ -83,8 +89,12 @@ def generate_ns_continuation(primer_ns, estimator, ckpt_path, unconditional_enco
 
 
 def main():
-    if args.primer is not None and not os.path.isfile(args.primer):
-        raise ValueError(f"'{args.primer}' is not a file path.")
+    if args.primer is not None:
+        if not os.path.isfile(args.primer):
+            raise ValueError(f"'{args.primer}' is not a file path.")
+
+        if args.max_primer_seconds <= 0:
+            raise ValueError("Max primer seconds must be > 0.")
 
     model_name = "transformer"
     hparams_set = "transformer_tpu"
@@ -122,10 +132,9 @@ def main():
         primer_ns = note_seq.apply_sustain_control_changes(primer_ns)
 
         # Trim to desired number of seconds.
-        max_primer_seconds = 20
-        if primer_ns.total_time > max_primer_seconds:
-            print("Primer is longer than %d seconds, truncating." % max_primer_seconds)
-            primer_ns = note_seq.extract_subsequence(primer_ns, 0, max_primer_seconds)
+        if primer_ns.total_time > args.max_primer_seconds:
+            print("Primer is longer than %d seconds, truncating." % args.max_primer_seconds)
+            primer_ns = note_seq.extract_subsequence(primer_ns, 0, args.max_primer_seconds)
 
         # Remove drums from primer if present.
         if any(note.is_drum for note in primer_ns.notes):
