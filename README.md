@@ -3,7 +3,7 @@
 This is a ported script from the original Music Transformer [notebook](https://colab.research.google.com/notebooks/magenta/piano_transformer/piano_transformer.ipynb).
 Also included is a Dockerfile that makes it easy build the environment to run the script.
 
-This project is inspired by [this repository](https://github.com/ot07/music-transformer-script), but differs in the following:
+This project is inspired by [this repository](https://github.com/Elvenson/piano_transformer), but differs in the following:
 
 * Follows newer versions of notebook (e.g. library versions used)
 * Easily create an execution environment with docker and poetry
@@ -61,4 +61,6 @@ docker run -it --rm -v ${PWD}/output:output generating-piano-music-with-transfor
 
 ## Inspiration
 
-This is inspired [Music Transformer Script: A ported script from Google Music Transformer notebook](https://github.com/ot07/music-transformer-script).
+This is inspired by the following repository:
+
+* [Music Transformer Script: A ported script from Google Music Transformer notebook](https://github.com/Elvenson/piano_transformer)
