@@ -1,5 +1,6 @@
 import argparse
 import os
+import time
 
 import note_seq
 import numpy as np
@@ -146,14 +147,15 @@ def main():
         )
 
     # Write to output_dir.
+    stem = f"unconditional_{time.strftime('%Y-%m-%d_%H%M%S')}"
     os.makedirs(args.output_dir, exist_ok=True)
-    note_seq.note_sequence_to_midi_file(generated_ns, os.path.join(args.output_dir, "unconditional.mid"))
+    note_seq.note_sequence_to_midi_file(generated_ns, os.path.join(args.output_dir, f"{stem}.mid"))
 
     # Convert midi file to wave file.
     fs = FluidSynth(SF2_PATH, SAMPLE_RATE)
     fs.midi_to_audio(
-        os.path.join(args.output_dir, "unconditional.mid"),
-        os.path.join(args.output_dir, "unconditional.wav"),
+        os.path.join(args.output_dir, f"{stem}.mid"),
+        os.path.join(args.output_dir, f"{stem}.wav"),
     )
 
 
