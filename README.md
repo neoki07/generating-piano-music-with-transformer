@@ -52,7 +52,7 @@ docker run -it --rm -v ${PWD}/output:/output generating-piano-music-with-transfo
 ### Generate Accompaniment for Melody
 
 By specifying a melody MIDI file in `--melody` argument,
-You can generate a piano performance consisting of the chosen melody plus accompaniment.
+you can generate a piano performance consisting of the chosen melody plus accompaniment.
 
 ```sh
 docker run -it --rm -v ${PWD}/output:/output generating-piano-music-with-transformer \
