@@ -6,7 +6,7 @@ Also included is a Dockerfile that makes it easy build the environment to run th
 This project is inspired by [this repository](https://github.com/Elvenson/piano_transformer), but differs in the following:
 
 * Follows newer versions of notebook (e.g. library versions used)
-* Easily create an execution environment with docker and poetry
+* Easily create an execution environment with Dockerfile and Poetry
 * Export as wave file in addition to MIDI file
 * Only the original notebook generation method is implemented
 
