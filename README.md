@@ -36,7 +36,7 @@ You can generate a piano performance from scratch using the unconditional model.
 
 ```sh
 docker run -it --rm -v ${PWD}/output:/output generating-piano-music-with-transformer \
-  python generate_from_unconditional_model.py --output_dir=output
+  python generate_from_unconditional_model.py --output_dir=/output
 ```
 
 ### Generate Continuation
@@ -46,7 +46,7 @@ you can generate a piano performance that is a continuation of the chosen primer
 
 ```sh
 docker run -it --rm -v ${PWD}/output:/output generating-piano-music-with-transformer \
-  python generate_from_unconditional_model.py --output_dir=output --primer=<primer midi file>
+  python generate_from_unconditional_model.py --output_dir=/output --primer=<primer midi file>
 ```
 
 ### Generate Accompaniment for Melody
@@ -56,7 +56,7 @@ you can generate a piano performance consisting of the chosen melody plus accomp
 
 ```sh
 docker run -it --rm -v ${PWD}/output:/output generating-piano-music-with-transformer \
-  python generate_from_melody_conditioned_model.py --output_dir=output --melody=<melody midi file>
+  python generate_from_melody_conditioned_model.py --output_dir=/output --melody=<melody midi file>
 ```
 
 ## Inspiration
